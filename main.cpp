@@ -7,19 +7,18 @@ using namespace std;
 
 int main()
 {
-    //int x, y;
+    // int x, y;
     string name;
     Player *listPlayer = new Player[2];
     Point point;
     CaroBoardView caroBoardView;
-    cout<<"name player1: ";
-    cin>>name;
+    cout << "name player1: ";
+    cin >> name;
     listPlayer[0].setName(name);
-    cout<<"name player2: ";
-    cin>>name;
+    cout << "name player2: ";
+    cin >> name;
     listPlayer[1].setName(name);
 
-    
     CaroBoard caroBoard;
 
     Management management(caroBoard, listPlayer, caroBoardView);
@@ -38,12 +37,15 @@ int main()
              << "player1: ";
 
         cin >> point.x >> point.y;
+
         system("CLS");
         if (management.checkBlank(point) == true)
         {
             management.updateCaroBoard(point, _player1);
             caroBoard.setNumberFill();
             management.showCaroBoard();
+            pair<Point, _player> moving(point, _player1);
+            management.addMoving(moving);
             if (management.result() == 1)
             {
                 management.setWinPlayer(listPlayer[0].getName());
@@ -60,11 +62,14 @@ int main()
         cout << endl
              << "player2: ";
         cin >> point.x >> point.y;
+
         system("CLS");
         if (management.checkBlank(point) == true)
         {
             management.updateCaroBoard(point, _player2);
             caroBoard.setNumberFill();
+            pair<Point, _player> moving(point, _player2);
+            management.addMoving(moving);
             management.showCaroBoard();
             if (management.result() == 0)
             {
@@ -83,5 +88,6 @@ int main()
     management.save(listPlayer);
     delete listPlayer;
     listPlayer = nullptr;
-
+    system("ClS");
+    management.replayMode();
 }

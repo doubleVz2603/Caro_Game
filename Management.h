@@ -2,6 +2,7 @@
 #define MANAGEMENT_H
 #include <iostream>
 #include "Player.h"
+#include <windows.h>
 #include "CaroBoardView.h"
 #include "CaroBoard.h"
 #include <vector>
@@ -17,12 +18,13 @@ private:
     Player *listPlayer;
     CaroBoard caroBoard;
     Point point;
-    //vector<pair<> listMoving;
+    vector<pair<Point, _player>> listMoving;
 
 public:
 
     Management();
     Management(CaroBoard, Player*, CaroBoardView);
+    void addMoving(pair<Point,_player>);
     void setWinPlayer(string);
     void setDrawPlayer();
     void setLosePlayer(string);
@@ -32,9 +34,9 @@ public:
     void showCaroBoard();
     void updateCaroBoard(Point , _player);
     CaroBoard getCaroBoard();
-    Player* getPlayer();
+    Player* getListPlayer();
+    void replayMode();
     ~Management();
-
 };
 
 #endif

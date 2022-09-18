@@ -1,6 +1,8 @@
 
 #include "Management.h"
-Management::Management() {
+
+Management::Management()
+{
     listPlayer = new Player[2];
 }
 
@@ -226,7 +228,7 @@ int Management::result()
     return 2;
 }
 
-Player* Management::getPlayer()
+Player *Management::getListPlayer()
 {
     return listPlayer;
 }
@@ -245,8 +247,6 @@ void Management::setWinPlayer(string name)
     {
         listPlayer[1].setWin();
     }
-    
-   
 }
 
 void Management::setDrawPlayer()
@@ -265,11 +265,29 @@ void Management::setLosePlayer(string name)
     {
         listPlayer[1].setLose();
     }
-    
 }
 
 Management::~Management()
 {
     delete listPlayer;
     listPlayer = nullptr;
+}
+
+void Management::addMoving(pair<Point, _player> moving)
+{
+    listMoving.push_back(moving);
+}
+
+void Management::replayMode()
+{
+    caroBoard.resetCaroBoard();
+    caroBoard.setCaroBoard();
+    showCaroBoard();
+    for (int i = 0; i < listMoving.size(); i++)
+    {
+        system("CLS");
+        updateCaroBoard(listMoving[i].first, listMoving[i].second);
+        showCaroBoard();
+        Sleep(1000);
+    }
 }

@@ -15,8 +15,8 @@ private:
 public:
     CaroBoard();
     //void setCaroBoard(int, int, _player);
-
-    //void showCaroBoard();
+    void resetCaroBoard();
+    void setCaroBoard();
     void setNumberFill();
     int getNumberFill();
     char **getCaroBoard();
