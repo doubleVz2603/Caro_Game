@@ -1,35 +1,54 @@
 #include <iostream>
 #include "CaroBoard.h"
 #include "Player.h"
+#include "Management.h"
+#include "CaroBoardView.h"
 using namespace std;
 
 int main()
 {
-    int x, y, count = 0;
-    Player player1;
-    Player player2;
+    //int x, y;
+    string name;
+    Player *listPlayer = new Player[2];
+    Point point;
+    CaroBoardView caroBoardView;
+    cout<<"name player1: ";
+    cin>>name;
+    listPlayer[0].setName(name);
+    cout<<"name player2: ";
+    cin>>name;
+    listPlayer[1].setName(name);
+
+    
     CaroBoard caroBoard;
-    caroBoard.showCaroBoard();
+
+    Management management(caroBoard, listPlayer, caroBoardView);
+
+    management.showCaroBoard();
     while (1)
     {
-        if (count == 10)
+        if (caroBoard.getNumberFill() == 100)
         {
+            cout << "x drew o";
+            management.setDrawPlayer();
             break;
         }
     inputAgain:
         cout << endl
              << "player1: ";
 
-        cin >> x >> y;
+        cin >> point.x >> point.y;
         system("CLS");
-        if (caroBoard.checkBlank(x, y) == true)
+        if (management.checkBlank(point) == true)
         {
-            caroBoard.setCaroBoard(x, y, _player1);
-            caroBoard.setNumberBlank();
-            caroBoard.showCaroBoard();
-            if(caroBoard.result() == 1)
+            management.updateCaroBoard(point, _player1);
+            caroBoard.setNumberFill();
+            management.showCaroBoard();
+            if (management.result() == 1)
             {
-                cout<<"x win";
+                management.setWinPlayer(listPlayer[0].getName());
+                management.setLosePlayer(listPlayer[1].getName());
+                cout << "x win";
                 break;
             }
         }
@@ -40,28 +59,29 @@ int main()
     inputAgain2:
         cout << endl
              << "player2: ";
-        cin >> x >> y;
+        cin >> point.x >> point.y;
         system("CLS");
-        if (caroBoard.checkBlank(x, y) == true)
+        if (management.checkBlank(point) == true)
         {
-            caroBoard.setCaroBoard(x, y, _player2);
-            caroBoard.setNumberBlank();
-            caroBoard.showCaroBoard();
-            if(caroBoard.result() == 0)
+            management.updateCaroBoard(point, _player2);
+            caroBoard.setNumberFill();
+            management.showCaroBoard();
+            if (management.result() == 0)
             {
-                cout<<"o win";
+                management.setWinPlayer(listPlayer[1].getName());
+                management.setLosePlayer(listPlayer[0].getName());
+                cout << "o win";
                 break;
             }
-        
         }
         else
         {
             goto inputAgain2;
         }
-
-
-        
-
-        ++count;
     }
+
+    management.save(listPlayer);
+    delete listPlayer;
+    listPlayer = nullptr;
+
 }

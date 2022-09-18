@@ -4,6 +4,13 @@
 using namespace std;
 CaroBoard ::CaroBoard()
 {
+    caroBoard = (char **)malloc(sizeof(char *) * 10);
+
+    for (int i = 0; i < 10; i++)
+    {
+        caroBoard [i] = (char *)malloc(sizeof(char) * 10);
+    }
+
     for (int i = 0; i < 10; i++)
     {
         for (int j = 0; j < 10; j++)
@@ -12,228 +19,245 @@ CaroBoard ::CaroBoard()
         }
     }
 }
-void CaroBoard::setCaroBoard(int x, int y, _player player)
-{
-    if (player == _player1)
-    {
-        this->caroBoard[x][y] = 'x';
-    }
+// void CaroBoard::setCaroBoard(int x, int y, _player player)
+// {
+//     if (player == _player1)
+//     {
+//         this->caroBoard[x][y] = 'x';
+//     }
 
-    else
-    {
-        this->caroBoard[x][y] = 'o';
-    }
+//     else
+//     {
+//         this->caroBoard[x][y] = 'o';
+//     }
+// }
+
+char** CaroBoard::getCaroBoard()
+{
+    return caroBoard;
 }
 
-void CaroBoard::showCaroBoard()
+// CaroBoard::~CaroBoard()
+// {
+//     for (int i = 0; i < 10; i++)
+//     {
+//         delete caroBoard[i];
+//         caroBoard[i] = nullptr;
+//     }
+    
+//     delete caroBoard;
+//     caroBoard = nullptr;
+// }
+
+// void CaroBoard::showCaroBoard()
+// {
+//     for (int i = 0; i < 10; i++)
+//     {
+//         for (int j = 0; j < 10; j++)
+//         {
+//             cout << caroBoard[i][j] << "|";
+//         }
+//         cout << endl
+//              << "----------------------" << endl;
+//     }
+// }
+
+int CaroBoard::getNumberFill()
 {
-    for (int i = 0; i < 10; i++)
-    {
-        for (int j = 0; j < 10; j++)
-        {
-            cout << caroBoard[i][j] << "|";
-        }
-        cout << endl
-             << "----------------------" << endl;
-    }
+    return numberFill;
 }
 
-int CaroBoard::getNumberBlank()
+// bool CaroBoard::checkBlank(int x, int y)
+// {
+//     if (caroBoard[x][y] != ' ')
+//     {
+//         return false;
+//     }
+//     return true;
+// }
+
+void CaroBoard::setNumberFill()
 {
-    return numberBlank;
+    ++this->numberFill;
 }
 
-bool CaroBoard::checkBlank(int x, int y)
-{
-    if (caroBoard[x][y] != ' ')
-    {
-        return false;
-    }
-    return true;
-}
+// int CaroBoard::result()
+// {
+//     int countX = 0;
+//     int countO = 0;
+//     // check row
+//     for (int row = 0; row < 10; row++)
+//     {
+//         for (int column = 0; column < 6; column++)
+//         {
 
-void CaroBoard::setNumberBlank()
-{
-    ++this->numberBlank;
-}
+//             for (int i = 0; i < 5; i++)
+//             {
 
-int CaroBoard::result()
-{
-    int countX = 0;
-    int countO = 0;
-    // check row
-    for (int row = 0; row < 10; row++)
-    {
-        for (int column = 0; column < 6; column++)
-        {
+//                 if (caroBoard[row][column + i] == 'x')
+//                 {
+//                     ++countX;
+//                 }
+//                 else if (caroBoard[row][column + i] == 'o')
+//                 {
+//                     ++countO;
+//                 }
+//             }
+//             if (countX != 5)
+//             {
+//                 countX = 0;
+//             }
+//             if (countO != 5)
+//             {
+//                 countO = 0;
+//             }
+//             if (countO == 5 || countX == 5)
+//             {
+//                 break;
+//             }
+//         }
 
-            for (int i = 0; i < 5; i++)
-            {
+//         if (countX == 5)
+//         {
+//             return 1;
+//             break;
+//         }
 
-                if (caroBoard[row][column + i] == 'x')
-                {
-                    ++countX;
-                }
-                else if (caroBoard[row][column + i] == 'o')
-                {
-                    ++countO;
-                }
-            }
-            if (countX != 5)
-            {
-                countX = 0;
-            }
-            if (countO != 5)
-            {
-                countO = 0;
-            }
-            if (countO == 5 || countX == 5)
-            {
-                break;
-            }
-        }
+//         else if (countO == 5)
+//         {
+//             return 0;
+//             break;
+//         }
+//     }
 
-        if (countX == 5)
-        {
-            return 1;
-            break;
-        }
+//     // check column
+//     for (int column = 0; column < 10; column++)
+//     {
+//         for (int row = 0; row < 6; row++)
+//         {
+//             for (int i = 0; i < 5; i++)
+//             {
 
-        else if (countO == 5)
-        {
-            return 0;
-            break;
-        }
-    }
+//                 if (caroBoard[row + i][column] == 'x')
+//                 {
+//                     ++countX;
+//                 }
+//                 else if (caroBoard[row + i][column] == 'o')
+//                 {
+//                     ++countO;
+//                 }
+//             }
+//             if (countX != 5)
+//             {
+//                 countX = 0;
+//             }
+//             if (countO != 5)
+//             {
+//                 countO = 0;
+//             }
+//             if (countO == 5 || countX == 5)
+//             {
+//                 break;
+//             }
+//         }
 
-    // check column
-    for (int column = 0; column < 10; column++)
-    {
-        for (int row = 0; row < 6; row++)
-        {
-            for (int i = 0; i < 5; i++)
-            {
+//         if (countX == 5)
+//         {
+//             return 1;
+//             break;
+//         }
 
-                if (caroBoard[row + i][column] == 'x')
-                {
-                    ++countX;
-                }
-                else if (caroBoard[row + i][column] == 'o')
-                {
-                    ++countO;
-                }
-            }
-            if (countX != 5)
-            {
-                countX = 0;
-            }
-            if (countO != 5)
-            {
-                countO = 0;
-            }
-            if (countO == 5 || countX == 5)
-            {
-                break;
-            }
-        }
+//         else if (countO == 5)
+//         {
+//             return 0;
+//             break;
+//         }
+//     }
 
-        if (countX == 5)
-        {
-            return 1;
-            break;
-        }
+//     // check cross from right to left
+//     for (int row = 0; row < 6; row++)
+//     {
+//         for (int column = 0; column < 6; column++)
+//         {
+//             for (int i = 0; i < 5; i++)
+//             {
+//                 if (caroBoard[row + i][column + i] == 'x')
+//                 {
+//                     ++countX;
+//                 }
+//                 else if (caroBoard[row + i][column + i] == 'o')
+//                 {
+//                     ++countO;
+//                 }
+//             }
+//             if (countX != 5)
+//             {
+//                 countX = 0;
+//             }
+//             if (countO != 5)
+//             {
+//                 countO = 0;
+//             }
+//             if (countO == 5 || countX == 5)
+//             {
+//                 break;
+//             }
+//         }
 
-        else if (countO == 5)
-        {
-            return 0;
-            break;
-        }
-    }
+//         if (countX == 5)
+//         {
+//             return 1;
+//             break;
+//         }
 
-    // check cross from right to left
-    for (int row = 0; row < 6; row++)
-    {
-        for (int column = 0; column < 6; column++)
-        {
-            for (int i = 0; i < 5; i++)
-            {
-                if (caroBoard[row + i][column + i] == 'x')
-                {
-                    ++countX;
-                }
-                else if (caroBoard[row + i][column + i] == 'o')
-                {
-                    ++countO;
-                }
-            }
-            if (countX != 5)
-            {
-                countX = 0;
-            }
-            if (countO != 5)
-            {
-                countO = 0;
-            }
-            if (countO == 5 || countX == 5)
-            {
-                break;
-            }
-        }
+//         else if (countO == 5)
+//         {
+//             return 0;
+//             break;
+//         }
+//     }
 
-        if (countX == 5)
-        {
-            return 1;
-            break;
-        }
+//     // check cross from left to right
+//     for (int row = 0; row < 6; row++)
+//     {
+//         for (int column = 9; column > 3; column--)
+//         {
+//             for (int i = 0; i < 5; i++)
+//             {
+//                 if (caroBoard[row + i][column - i] == 'x')
+//                 {
+//                     ++countX;
+//                 }
+//                 else if (caroBoard[row + i][column - i] == 'o')
+//                 {
+//                     ++countO;
+//                 }
+//             }
+//             if (countX != 5)
+//             {
+//                 countX = 0;
+//             }
+//             if (countO != 5)
+//             {
+//                 countO = 0;
+//             }
+//             if (countO == 5 || countX == 5)
+//             {
+//                 break;
+//             }
+//         }
 
-        else if (countO == 5)
-        {
-            return 0;
-            break;
-        }
-    }
+//         if (countX == 5)
+//         {
+//             return 1;
+//             break;
+//         }
 
-    // check cross from left to right
-    for (int row = 0; row < 6; row++)
-    {
-        for (int column = 9; column > 3; column--)
-        {
-            for (int i = 0; i < 5; i++)
-            {
-                if (caroBoard[row + i][column - i] == 'x')
-                {
-                    ++countX;
-                }
-                else if (caroBoard[row + i][column - i] == 'o')
-                {
-                    ++countO;
-                }
-            }
-            if (countX != 5)
-            {
-                countX = 0;
-            }
-            if (countO != 5)
-            {
-                countO = 0;
-            }
-            if (countO == 5 || countX == 5)
-            {
-                break;
-            }
-        }
-
-        if (countX == 5)
-        {
-            return 1;
-            break;
-        }
-
-        else if (countO == 5)
-        {
-            return 0;
-            break;
-        }
-    }
-    return 2;
-}
+//         else if (countO == 5)
+//         {
+//             return 0;
+//             break;
+//         }
+//     }
+//     return 2;
+// }

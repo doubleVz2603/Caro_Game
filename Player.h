@@ -10,10 +10,19 @@ class Player
 {
 private:
     string name;
-    int win, lose, draw;
+    int win = 0, lose = 0, draw = 0;
 public:
     Player();
     Player(string);
+    void setName(string);
+    void setWin();
+    void setLose();
+    void setDraw();
+
+    int getWin();
+    int getLose();
+    int getDraw();
+    string getName();
     ~Player();
 };
 

@@ -7,19 +7,22 @@
 class CaroBoard
 {
 private:
-    char caroBoard[50][50];
+    //char caroBoard[50][50];
     // bool checkBlank;
-    int numberBlank;
+    int numberFill = 0;
+    char **caroBoard = NULL;
 
 public:
     CaroBoard();
-    void setCaroBoard(int, int, _player);
+    //void setCaroBoard(int, int, _player);
 
-    void showCaroBoard();
-    void setNumberBlank();
-    int getNumberBlank();
-    bool checkBlank(int, int);
-    int result();
+    //void showCaroBoard();
+    void setNumberFill();
+    int getNumberFill();
+    char **getCaroBoard();
+    // bool checkBlank(int, int);
+    // int result();
+    //~CaroBoard();
 };
 
 #endif
